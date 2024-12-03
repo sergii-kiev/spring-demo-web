@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>ToDo List</title>
+</head>
+<body>
+<h1>ToDo List</h1>
+<!-- Форма для добавления новой задачи -->
+<form action="/add" method="post">
+  <input type="text" name="description" placeholder="New Task">
+  <button type="submit">Add</button>
+</form>
+<ul>
+  <!-- Перебор всех задач и их отображение -->
+  <li th:each="todo : ${todos}">
+    <span th:text="${todo.description}"></span>
+    <span th:if="${todo.completed}"> - Completed</span>
+    <!-- Форма для отметки задачи как выполненной -->
+    <form th:action="'/complete?id=' + ${todo.id}" method="post" th:if="${!todo.completed}">
+      <button type="submit">Complete</button>
+    </form>
+  </li>
+</ul>
+</body>
+</html>
